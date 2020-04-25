@@ -3,6 +3,7 @@
  */
 
 import { orderBy } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -35,28 +36,49 @@ const FormatToolbar = () => {
 					)
 				) }
 				<Slot name="RichText.ToolbarControls">
-					{ ( fills ) =>
-						fills.length !== 0 && (
+					{ ( fills ) => {
+						if ( fills.length === 0 ) {
+							return null;
+						}
+
+						const allProps = fills.map(
+							( [ { props } ] ) => props
+						);
+						const hasActive = allProps.some(
+							( { isActive } ) => isActive
+						);
+
+						return (
 							<ToolbarItem>
-								{ ( toggleProps ) => (
-									<DropdownMenu
-										icon={ chevronDown }
-										label={ __(
-											'More rich text controls'
-										) }
-										toggleProps={ toggleProps }
-										controls={ orderBy(
-											fills.map(
-												( [ { props } ] ) => props
+								{ ( toggleProps ) => {
+									if ( hasActive ) {
+										toggleProps = {
+											...toggleProps,
+											className: classnames(
+												toggleProps.className,
+												'is-pressed'
 											),
-											'title'
-										) }
-										popoverProps={ POPOVER_PROPS }
-									/>
-								) }
+										};
+									}
+
+									return (
+										<DropdownMenu
+											icon={ chevronDown }
+											label={ __(
+												'More rich text controls'
+											) }
+											toggleProps={ toggleProps }
+											controls={ orderBy(
+												allProps,
+												'title'
+											) }
+											popoverProps={ POPOVER_PROPS }
+										/>
+									);
+								} }
 							</ToolbarItem>
-						)
-					}
+						);
+					} }
 				</Slot>
 			</ToolbarGroup>
 		</div>

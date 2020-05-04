@@ -8,15 +8,15 @@ import { get, isEmpty } from 'lodash';
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useState } from '@wordpress/element';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { Icon, textColor as textColorIcon } from '@wordpress/icons';
+import { textColor as textColorIcon } from '@wordpress/icons';
 import { removeFormat } from '@wordpress/rich-text';
 
 /**
  * Internal dependencies
  */
-import { default as InlineColorUI, getActiveColor } from './inline';
+import { default as InlineColorUI } from './inline';
 
 const name = 'core/text-color';
 const title = __( 'Text Color' );
@@ -44,15 +44,6 @@ function TextColorEdit( { value, onChange, isActive, activeAttributes } ) {
 	const disableIsAddingColor = useCallback( () => setIsAddingColor( false ), [
 		setIsAddingColor,
 	] );
-	const colorIndicatorStyle = useMemo( () => {
-		const activeColor = getActiveColor( name, value, colors );
-		if ( ! activeColor ) {
-			return undefined;
-		}
-		return {
-			backgroundColor: activeColor,
-		};
-	}, [ value, colors ] );
 
 	const hasColorsToChoose =
 		! isEmpty( colors ) || disableCustomColors !== true;
@@ -64,17 +55,7 @@ function TextColorEdit( { value, onChange, isActive, activeAttributes } ) {
 		<>
 			<RichTextToolbarButton
 				className="format-library-text-color-button"
-				icon={
-					<>
-						<Icon icon={ textColorIcon } />
-						{ isActive && (
-							<span
-								className="format-library-text-color-button__indicator"
-								style={ colorIndicatorStyle }
-							/>
-						) }
-					</>
-				}
+				icon={ textColorIcon }
 				title={ title }
 				// If has no colors to choose but a color is active remove the color onClick
 				onClick={

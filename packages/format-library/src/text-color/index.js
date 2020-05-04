@@ -84,6 +84,7 @@ function TextColorEdit( { value, onChange, isActive, activeAttributes } ) {
 						? enableIsAddingColor
 						: () => onChange( removeFormat( value, name ) )
 				}
+				isActive={ isActive }
 			/>
 			{ isAddingColor && (
 				<InlineColorUI

@@ -27,14 +27,12 @@ const FormatToolbar = () => {
 	return (
 		<div className="block-editor-format-toolbar">
 			<ToolbarGroup>
-				{ [ 'bold', 'italic', 'link', 'text-color' ].map(
-					( format ) => (
-						<Slot
-							name={ `RichText.ToolbarControls.${ format }` }
-							key={ format }
-						/>
-					)
-				) }
+				{ [ 'bold', 'italic', 'link' ].map( ( format ) => (
+					<Slot
+						name={ `RichText.ToolbarControls.${ format }` }
+						key={ format }
+					/>
+				) ) }
 				<Slot name="RichText.ToolbarControls">
 					{ ( fills ) => {
 						if ( fills.length === 0 ) {

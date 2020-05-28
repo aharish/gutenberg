@@ -1,5 +1,6 @@
 {
 	"name": "core/paragraph",
+	"selector": "p",
 	"category": "common",
 	"attributes": {
 		"align": {

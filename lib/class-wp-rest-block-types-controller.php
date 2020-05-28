@@ -431,7 +431,7 @@ class WP_REST_Block_Types_Controller extends WP_REST_Controller {
 				),
 				'parent'        => array(
 					'description' => __( 'Parent blocks.', 'gutenberg' ),
-					'type'        => 'array',
+					'type'        => array( 'null', 'array' ),
 					'items'       => array(
 						'type' => 'string',
 					),

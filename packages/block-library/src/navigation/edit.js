@@ -28,7 +28,7 @@ import {
 	ToggleControl,
 	Toolbar,
 	ToolbarGroup,
-	SelectControl,
+	CustomSelectControl,
 } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
@@ -118,7 +118,7 @@ function Navigation( {
 		);
 	}, [ pages ] );
 
-	const menuItems = getMenuItems( selectedMenu );
+	const menuItems = getMenuItems( selectedMenu?.key );
 
 	const navLinkBlocksFromMenuItems = useMemo( () => {
 		if ( ! menuItems ) {
@@ -182,6 +182,7 @@ function Navigation( {
 		// Create an empty Nav Block if:
 		// i. the selected Menu has no items
 		// ii. the selected Menu is the "CREATE_EMPTY" placeholder option
+
 		if (
 			( selectedMenu && selectedMenu === CREATE_EMPTY_OPTION_VALUE ) ||
 			! navLinkBlocksFromMenuItems ||
@@ -207,27 +208,27 @@ function Navigation( {
 		!! menus && menus.length
 			? [
 					{
-						id: '',
+						key: '',
 						name: __( 'Select Menu…' ),
 					},
 					...menus,
 					{
-						id: '',
+						key: '',
 						name: '------------------',
 						disabled: true,
 					},
 					{
-						id: CREATE_EMPTY_OPTION_VALUE,
+						key: CREATE_EMPTY_OPTION_VALUE,
 						name: __( 'Create Empty' ),
 					},
 			  ]
 			: [
 					{
-						id: '',
+						key: '',
 						name: __( 'Select Menu…' ),
 					},
 					{
-						id: CREATE_EMPTY_OPTION_VALUE,
+						key: CREATE_EMPTY_OPTION_VALUE,
 						name: __( 'Create Empty' ),
 					},
 			  ];
@@ -259,18 +260,18 @@ function Navigation( {
 
 						{ !! hasMenus && (
 							<>
-								<SelectControl
+								<CustomSelectControl
 									label={ __( 'Create from existing Menu' ) }
 									hideLabelFromVision={ true }
 									value={ selectedMenu || menuOptions[ 0 ] }
-									onChange={ ( value ) => {
-										setSelectedMenu( value );
+									onChange={ ( { selectedItem } ) => {
+										setSelectedMenu( selectedItem );
 									} }
 									options={ menuOptions.map(
 										( mappedMenu ) => {
 											return {
-												label: mappedMenu.name,
-												value: mappedMenu.id,
+												name: mappedMenu.name,
+												key: mappedMenu.id,
 												disabled: mappedMenu.disabled,
 											};
 										}

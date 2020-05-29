@@ -1,5 +1,10 @@
-
 <?php
+/**
+ * General utilities.
+ *
+ * @package gutenberg
+ */
+
 /**
  * This function allows to easily access a part from a php array.
  * It is equivalent to want lodash get provides for JavaScript and is useful to have something similar

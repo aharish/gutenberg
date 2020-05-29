@@ -155,7 +155,7 @@ The list of properties that are currently exposed via this method are:
 
 - Global: background-color.
 - Paragraph and Heading: line-height, font-size, color, background-color.
-- Group, Columns, and MediaText: color, background-color.
+- Group, Columns, and MediaText: color, background-color, background.
 
 ### Features
 
@@ -208,16 +208,22 @@ This is being implemented, so it's not currently available.
   core/columns: {
     styles: {
         color: <value>,
+        background: <value>,
+        background-color: <value>,
     }
   },
   core/group: {
     styles: {
         color: <value>,
+        background: <value>,
+        background-color: <value>,
     }
   },
   core/media-text: {
     styles: {
         color: <value>,
+        background: <value>,
+        background-color: <value>,
     }
   },
 }
